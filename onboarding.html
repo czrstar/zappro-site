@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZapPro — Formulário de Onboarding</title>
+  <meta name="description" content="Preencha o formulário de onboarding ZapPro para configurar seu assistente WhatsApp em até 48h." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:        #22C55E;
+      --green-dark:   #16A34A;
+      --blue-primary: #38BDF8;
+      --blue-hover:   #0EA5E9;
+      --blue-deep:    #0C4A6E;
+      --blue-dark:    #0369A1;
+      --blue-pale:    #E0F2FE;
+      --blue-light:   #BAE6FD;
+      --white:        #FFFFFF;
+      --grey-50:      #F8FAFC;
+      --grey-100:     #F1F5F9;
+      --grey-200:     #E2E8F0;
+      --grey-400:     #94A3B8;
+      --grey-500:     #64748B;
+      --grey-700:     #334155;
+      --grey-900:     #0F172A;
+      --orange:       #F97316;
+      --orange-pale:  #FFF7ED;
+      --radius:       12px;
+      --shadow:       0 4px 24px rgba(0,0,0,0.08);
+      --shadow-lg:    0 12px 48px rgba(0,0,0,0.14);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', system-ui, sans-serif;
+      color: var(--grey-900);
+      background: var(--grey-50);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 14px 0;
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .nav-inner {
+      max-width: 800px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 20px; font-weight: 900; color: var(--grey-900);
+      letter-spacing: -0.5px; text-decoration: none;
+    }
+    .logo-icon {
+      width: 36px; height: 36px; border-radius: 9px;
+      background: linear-gradient(135deg, #22C55E, #38BDF8);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 18px; color: #000; flex-shrink: 0;
+    }
+    .nav-wordmark b {
+      background: linear-gradient(135deg, #22C55E, #38BDF8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .back-link {
+      font-size: 13px; font-weight: 500; color: var(--grey-500);
+      text-decoration: none; display: flex; align-items: center; gap: 5px;
+      transition: color .2s;
+    }
+    .back-link:hover { color: var(--blue-dark); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--grey-900);
+      padding: 120px 24px 60px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(56,189,248,.15); color: var(--blue-light);
+      font-size: 12px; font-weight: 600; letter-spacing: .5px;
+      padding: 4px 14px; border-radius: 999px;
+      border: 1px solid rgba(56,189,248,.25);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+      color: var(--white); line-height: 1.2; margin-bottom: 16px;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #22C55E, #38BDF8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      color: var(--grey-400); font-size: 16px; max-width: 520px;
+      margin: 0 auto 32px;
+    }
+    .steps-row {
+      display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+      max-width: 640px; margin: 0 auto;
+    }
+    .step-pill {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 999px; padding: 6px 16px;
+      font-size: 13px; color: var(--grey-400);
+    }
+    .step-num {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--blue-primary); color: #000;
+      font-size: 11px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .main {
+      max-width: 800px; margin: 0 auto; padding: 48px 24px 80px;
+    }
+
+    /* ── PROGRESS ── */
+    .progress-wrap {
+      background: var(--white); border-radius: var(--radius);
+      border: 1px solid var(--grey-200); padding: 20px 24px;
+      margin-bottom: 32px; position: sticky; top: 66px; z-index: 50;
+      box-shadow: var(--shadow);
+    }
+    .progress-top {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 10px;
+    }
+    .progress-label { font-size: 13px; font-weight: 600; color: var(--grey-700); }
+    .progress-count { font-size: 13px; color: var(--grey-500); }
+    .progress-bar-bg {
+      background: var(--grey-100); border-radius: 4px; height: 6px; overflow: hidden;
+    }
+    .progress-bar {
+      background: linear-gradient(90deg, var(--green), var(--blue-primary));
+      height: 100%; border-radius: 4px;
+      transition: width .4s ease; width: 0%;
+    }
+    .section-dots {
+      display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap;
+    }
+    .section-dot {
+      height: 4px; flex: 1; border-radius: 2px;
+      background: var(--grey-200); transition: background .3s;
+    }
+    .section-dot.active { background: var(--blue-primary); }
+    .section-dot.done { background: var(--green); }
+
+    /* ── SECTION CARD ── */
+    .section-card {
+      background: var(--white); border-radius: var(--radius);
+      border: 1px solid var(--grey-200); margin-bottom: 20px;
+      overflow: hidden; box-shadow: var(--shadow);
+      transition: border-color .2s;
+    }
+    .section-card.active { border-color: var(--blue-primary); }
+    .section-card.done { border-color: var(--green); }
+
+    .section-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 24px; cursor: pointer;
+      border-bottom: 1px solid var(--grey-100);
+      user-select: none;
+    }
+    .section-head:hover { background: var(--grey-50); }
+    .section-head-left { display: flex; align-items: center; gap: 14px; }
+    .section-num {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: var(--grey-100); color: var(--grey-500);
+      font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all .2s;
+    }
+    .section-card.active .section-num { background: var(--blue-pale); color: var(--blue-dark); }
+    .section-card.done .section-num { background: #DCFCE7; color: var(--green-dark); }
+    .section-title { font-size: 15px; font-weight: 700; color: var(--grey-900); }
+    .section-subtitle { font-size: 12px; color: var(--grey-500); margin-top: 1px; }
+    .section-chevron {
+      color: var(--grey-400); transition: transform .3s; font-size: 18px;
+    }
+    .section-card.open .section-chevron { transform: rotate(180deg); }
+    .section-done-badge {
+      font-size: 11px; font-weight: 600; color: var(--green-dark);
+      background: #DCFCE7; padding: 2px 10px; border-radius: 999px;
+    }
+
+    .section-body { display: none; padding: 24px; }
+    .section-card.open .section-body { display: block; }
+
+    /* ── INFO BOX ── */
+    .info-box {
+      border-radius: 10px; padding: 14px 18px;
+      font-size: 13px; line-height: 1.7; margin-bottom: 24px;
+    }
+    .info-box.blue { background: var(--blue-pale); color: var(--blue-dark); border: 1px solid var(--blue-light); }
+    .info-box.orange { background: var(--orange-pale); color: #92400E; border: 1px solid #FED7AA; }
+    .info-box.green { background: #F0FDF4; color: #166534; border: 1px solid #86EFAC; }
+
+    /* ── FORM ELEMENTS ── */
+    .question { margin-bottom: 24px; }
+    .question:last-child { margin-bottom: 0; }
+    .q-label {
+      font-size: 14px; font-weight: 600; color: var(--grey-900);
+      margin-bottom: 4px; display: block;
+    }
+    .q-hint {
+      font-size: 12px; color: var(--grey-500); margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    input[type="text"], input[type="tel"], input[type="email"], textarea, select {
+      width: 100%; padding: 10px 14px;
+      border: 1.5px solid var(--grey-200); border-radius: 8px;
+      font-family: inherit; font-size: 14px; color: var(--grey-900);
+      background: var(--white); transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--blue-primary);
+      box-shadow: 0 0 0 3px rgba(56,189,248,.12);
+    }
+    textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+
+    .checkbox-group, .radio-group { display: flex; flex-direction: column; gap: 8px; }
+    .check-item, .radio-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 14px; border-radius: 8px;
+      border: 1.5px solid var(--grey-200); cursor: pointer;
+      transition: all .15s; background: var(--white);
+    }
+    .check-item:hover, .radio-item:hover { border-color: var(--blue-primary); background: var(--blue-pale); }
+    .check-item.selected { border-color: var(--blue-primary); background: var(--blue-pale); }
+    .radio-item.selected { border-color: var(--blue-primary); background: var(--blue-pale); }
+    .check-item input, .radio-item input { display: none; }
+    .check-box, .radio-box {
+      width: 18px; height: 18px; border-radius: 4px;
+      border: 2px solid var(--grey-300, #CBD5E1); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .15s; margin-top: 1px;
+    }
+    .radio-item .radio-box { border-radius: 50%; }
+    .check-item.selected .check-box,
+    .radio-item.selected .radio-box {
+      background: var(--blue-primary); border-color: var(--blue-primary);
+    }
+    .check-item.selected .check-box::after { content: "✓"; color: #000; font-size: 11px; font-weight: 800; }
+    .radio-item.selected .radio-box::after { content: "●"; color: #000; font-size: 8px; }
+    .check-label, .radio-label { font-size: 13px; color: var(--grey-700); line-height: 1.4; }
+
+    /* ── SECTION FOOTER ── */
+    .section-footer {
+      display: flex; justify-content: flex-end; margin-top: 28px;
+      padding-top: 20px; border-top: 1px solid var(--grey-100);
+    }
+    .btn-next {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--blue-primary); color: #000;
+      font-family: inherit; font-size: 14px; font-weight: 700;
+      border: none; cursor: pointer; border-radius: var(--radius);
+      padding: 10px 24px; transition: all .2s;
+    }
+    .btn-next:hover { background: var(--blue-hover); transform: translateY(-1px); }
+    .btn-next.done-btn { background: var(--green); }
+    .btn-next.done-btn:hover { background: var(--green-dark); }
+
+    /* ── SUBMIT SECTION ── */
+    .submit-card {
+      background: var(--grey-900); border-radius: var(--radius);
+      padding: 40px 32px; text-align: center; margin-top: 32px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .submit-card h3 {
+      font-size: 22px; font-weight: 800; color: var(--white); margin-bottom: 10px;
+    }
+    .submit-card p { color: var(--grey-400); font-size: 14px; margin-bottom: 28px; }
+    .btn-submit {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--green), var(--blue-primary));
+      color: #000; font-family: inherit; font-size: 16px; font-weight: 800;
+      border: none; cursor: pointer; border-radius: var(--radius);
+      padding: 16px 40px; transition: all .2s;
+    }
+    .btn-submit:hover { opacity: .9; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(34,197,94,.3); }
+    .submit-note { font-size: 12px; color: var(--grey-500); margin-top: 16px; }
+
+    /* ── SUCCESS ── */
+    .success-screen {
+      display: none; text-align: center; padding: 80px 24px;
+    }
+    .success-icon {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--green), var(--blue-primary));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; margin: 0 auto 24px;
+    }
+    .success-screen h2 { font-size: 28px; font-weight: 800; margin-bottom: 12px; }
+    .success-screen p { color: var(--grey-500); font-size: 16px; max-width: 480px; margin: 0 auto; }
+
+    /* ── REQUIRED STAR ── */
+    .req { color: #EF4444; margin-left: 3px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .steps-row { gap: 8px; }
+      .step-pill { font-size: 12px; padding: 5px 12px; }
+      .section-body { padding: 18px; }
+      .submit-card { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">
+      <div class="logo-icon">Z</div>
+      <span class="nav-wordmark"><b>Zap</b>Pro</span>
+    </a>
+    <a class="back-link" href="/">← Voltar ao site</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">⚡ Ativação em até 48h</div>
+  <h1>Configure seu<br><span>WhatsApp inteligente</span></h1>
+  <p>Preencha o formulário abaixo. Com essas informações, ativamos seu assistente ZapPro personalizado em até 48 horas.</p>
+  <div class="steps-row">
+    <div class="step-pill"><span class="step-num">1</span>Preencha o form (8 min)</div>
+    <div class="step-pill"><span class="step-num">2</span>Configuramos o assistente</div>
+    <div class="step-pill"><span class="step-num">3</span>Você aprova a V1 (call 20 min)</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-top">
+      <span class="progress-label" id="progressLabel">Seção 1 de 10</span>
+      <span class="progress-count" id="progressCount">0% concluído</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="section-dots" id="sectionDots"></div>
+  </div>
+
+  <form id="onboardingForm" name="zappro-onboarding" netlify netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="zappro-onboarding" />
+    <input type="hidden" name="bot-field" />
+
+    <!-- ── SEÇÃO 1 ── -->
+    <div class="section-card open active" id="sec-1" data-sec="1">
+      <div class="section-head" onclick="toggleSection(1)">
+        <div class="section-head-left">
+          <div class="section-num">1</div>
+          <div>
+            <div class="section-title">Contato e dados da empresa</div>
+            <div class="section-subtitle">Informações básicas do seu negócio</div>
+          </div>
+        </div>
+        <span class="section-chevron">▾</span>
+      </div>
+      <div class="section-body">
+        <div class="question">
+          <label class="q-label">Nome da empresa <span class="req">*</span></label>
+          <p class="q-hint">Como prefere ser chamado — nome curto, como os clientes conhecem.</p>
+          <input type="text" name="nome_empresa" required placeholder="Ex: Clínica Bachur, Burger do João..." />
+        </div>
+        <div class="question">
+          <label class="q-label">Cidade / bairro <span class="req">*</span></label>
+          <input type="text" name="cidade_bairro" required placeholder="Ex: Franca – SP, Centro" />
+        </div>
+        <div class="question">
+          <label class="q-label">Horário de atendimento <span class="req">*</span></label>
+          <input type="text" name="horario_atendimento" required placeholder="Ex: Seg–Sex 8h–18h, Sáb 8h–12h" />
+        </div>
+        <div class="question">
+          <label class="q-label">Instagram ou site</label>
+          <input type="text" name="instagram_site" placeholder="Ex: @clinicabachur ou clinicabachur.com.br" />
+        </div>
+        <div class="question">
+          <label class="q-label">Responsável pelo WhatsApp (nome + número) <span class="req">*</span></label>
+          <input type="text" name="responsavel" required placeholder="Ex: Ana Paula — +55 16 99999-9999" />
+        </div>
+        <div class="question">
+          <label class="q-label">Descrição da empresa <span class="req">*</span></label>
+          <p class="q-hint">2–3 frases sobre o que fazem e para quem. Esta descrição é usada para contextualizar o assistente.<br>Ex: "Clínica odontológica em Franca especializada em estética e implantes. Atendemos adultos e crianças desde 2015."</p>
+          <textarea name="descricao_empresa" required rows="3" placeholder="Descreva sua empresa em 2–3 frases..."></textarea>
+        </div>
+        <div class="section-footer">
+          <button type="button" class="btn-next" onclick="nextSection(1)">Próxima seção →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEÇÃO 2 ── -->
+    <div class="section-card" id="sec-2" data-sec="2">
+      <div class="section-head" onclick="toggleSection(2)">
+        <div class="section-head-left">
+          <div class="section-num">2</div>
+          <div>
+            <div class="section-title">Número do WhatsApp</div>
+            <div class="section-subtitle">Informações técnicas para ativação</div>
+          </div>
+        </div>
+        <span class="section-chevron">▾</span>
+      </div>
+      <div class="section-body">
+        <div class="question">
+          <label class="q-label">Qual o número do WhatsApp que será usado pelo bot? <span class="req">*</span></label>
+          <p class="q-hint">Formato: +55 DD 9XXXX-XXXX — pode ser o número atual da empresa.</p>
+          <input type="tel" name="numero_whatsapp" required placeholder="+55 16 99999-9999" />
+        </div>
+        <div class="question">
+          <label class="q-label">Situação do chip/SIM deste número <span class="req">*</span></label>
+          <div class="radio-group" id="rg-chip">
+            <label class="radio-item">
+              <input type="radio" name="situacao_chip" value="chip_livre" required />
+              <div class="radio-box"></div>
+              <span class="radio-label">Chip livre — não está conectado a nenhum WhatsApp</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="situacao_chip" value="chip_ativo" />
+              <div class="radio-box"></div>
+              <span class="radio-label">Chip ativo no celular da empresa <strong>(Coexistence)</strong> — o app do WhatsApp e o bot funcionam simultaneamente, sem precisar desconectar o celular</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="situacao_chip" value="sem_chip" />
+              <div class="radio-box"></div>
+              <span class="radio-label">Ainda não tenho chip — preciso de um número novo</span>
+            </label>
+          </div>
+        </div>
+        <div class="section-footer">
+          <button type="button" class="btn-next" onclick="nextSection(2)">Próxima seção →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEÇÃO 3 ── -->
+    <div class="section-card" id="sec-3" data-sec="3">
+      <div class="section-head" onclick="toggleSection(3)">
+        <div class="section-head-left">
+          <div class="section-num">3</div>
+          <div>
+            <div class="section-title">Foco do piloto</div>
+            <div class="section-subtitle">Serviços, objetivo e volume</div>
+          </div>
+        </div>
+        <span class="section-chevron">▾</span>
+      </div>
+      <div class="section-body">
+        <div class="question">
+          <label class="q-label">Quais serviços/produtos priorizar no WhatsApp? <span class="req">*</span></label>
+          <p class="q-hint">Marque até 3 opções ou descreva abaixo.</p>
+          <textarea name="servicos_prioritarios" required rows="2" placeholder="Ex: Implante dentário, avaliação inicial, ortodontia..."></textarea>
+        </div>
+        <div class="question">
+          <label class="q-label">Objetivo principal do piloto <span class="req">*</span></label>
+          <div class="checkbox-group" id="cg-objetivo">
+            <label class="check-item"><input type="checkbox" name="objetivo[]" value="agendar" /><div class="check-box"></div><span class="check-label">Agendar mais avaliações / vendas</span></label>
+            <label class="check-item"><input type="checkbox" name="objetivo[]" value="padronizar" /><div class="check-box"></div><span class="check-label">Responder mais rápido e padronizar o atendimento</span></label>
+            <label class="check-item"><input type="checkbox" name="objetivo[]" value="qualificar" /><div class="check-box"></div><span class="check-label">Filtrar curiosos e qualificar leads</span></label>
+            <label class="check-item"><input type="checkbox" name="objetivo[]" value="no_show" /><div class="check-box"></div><span class="check-label">Reduzir no-show (faltas e cancelamentos)</span></label>
+          </div>
+        </div>
+        <div class="question">
+          <label class="q-label">Volume atual: mensagens por mês no WhatsApp <span class="req">*</span></label>
+          <p class="q-hint">Usado para definir o plano ideal: Atende (≤200) • Cresce (≤500) • Escala (≤1.000)</p>
+          <div class="radio-group" id="rg-volume">
+            <label class="radio-item"><input type="radio" name="volume_mensal" value="ate100" required /><div class="radio-box"></div><span class="radio-label">Até 100 mensagens/mês</span></label>
+            <label class="radio-item"><input type="radio" name="volume_mensal" value="100_300" /><div class="radio-box"></div><span class="radio-label">100–300 mensagens/mês</span></label>
+            <label class="radio-item"><input type="radio" name="volume_mensal" value="300_600" /><div class="radio-box"></div><span class="radio-label">300–600 mensagens/mês</span></label>
+            <label class="radio-item"><input type="radio" name="volume_mensal" value="600plus" /><div class="radio-box"></div><span class="radio-label">Mais de 600 mensagens/mês</span></label>
+            <label class="radio-item"><input type="radio" name="volume_mensal" value="nao_uso" /><div class="radio-box"></div><span class="radio-label">Não uso WhatsApp para atendimento ainda</span></label>
+          </div>
+        </div>
+        <div class="section-footer">
+          <button type="button" class="btn-next" onclick="nextSection(3)">Próxima seção →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEÇÃO 4 ── -->
+    <div class="section-card" id="sec-4" data-sec="4">
+      <div class="section-head" onclick="toggleSection(4)">
+        <div class="section-head-left">
+          <div class="section-num">4</div>
+          <div>
+            <div class="section-title">Preço, pagamento e políticas</div>
+            <div class="section-subtitle">Como funciona a parte financeira</div>
+          </div>
+        </div>
+        <span class="section-chevron">▾</span>
+      </div>
+      <div class="section-body">
+        <div class="question">
+          <label class="q-label">Vocês passam valor por WhatsApp? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="passa_valor" value="sim_apartir" required /><div class="radio-box"></div><span class="radio-label">Sim, passamos "a partir de"</span></label>
+            <label class="radio-item"><input type="radio" name="passa_valor" value="so_apos" /><div class="radio-box"></div><span class="radio-label">Só após avaliação presencial / ligando</span></label>
+            <label class="radio-item"><input type="radio" name="passa_valor" value="depende" /><div class="radio-box"></div><span class="radio-label">Depende do caso</span></label>
+          </div>
+        </div>
+        <div class="question">
+          <label class="q-label">Formas de pagamento / parcelamento</label>
+          <input type="text" name="formas_pagamento" placeholder="Ex: cartão até 12x, PIX, dinheiro" />
+        </div>
+        <div class="question">
+          <label class="q-label">Política de sinal, cancelamento ou no-show</label>
+          <p class="q-hint">Se não tiver, pode deixar em branco.</p>
+          <textarea name="politica_cancelamento" rows="2" placeholder="Ex: sinal de 30% para confirmar, cancelamento com 24h de antecedência..."></textarea>
+        </div>
+        <div class="section-footer">
+          <button type="button" class="btn-next" onclick="nextSection(4)">Próxima seção →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEÇÃO 5 ── -->
+    <div class="section-card" id="sec-5" data-sec="5">
+      <div class="section-head" onclick="toggleSection(5)">
+        <div class="section-head-left">
+          <div class="section-num">5</div>
+          <div>
+            <div class="section-title">Agendamento</div>
+            <div class="section-subtitle">Como vocês marcam atendimentos hoje</div>
+          </div>
+        </div>
+        <span class="section-chevron">▾</span>
+      </div>
+      <div class="section-body">
+        <div class="question">
+          <label class="q-label">Como vocês agendam hoje? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="sistema_agenda" value="google_calendar" required /><div class="radio-box"></div><span class="radio-label">Google Calendar</span></label>
+            <label class="radio-item"><input type="radio" name="sistema_agenda" value="sistema" /><div class="radio-box"></div><span class="radio-label">Sistema de agenda — especifique abaixo</span></label>
+            <label class="radio-item"><input type="radio" name="sistema_agenda" value="manual" /><div class="radio-box"></div><span class="radio-label">Manual (WhatsApp / papel)</span></label>
+          </div>
+        </div>
+        <div class="question">
+          <label class="q-label">Se usa sistema, qual é?</label>
+          <input type="text" name="qual_sistema" placeholder="Ex: Doctoralia, iClinic, Simples Dental, Agendô..." />
+        </div>
+        <div class="question">
+          <label class="q-label">No piloto, o bot deve: <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="preferencia_agendamento" value="coletar_encaminhar" required /><div class="radio-box"></div><span class="radio-label">Coletar preferência (dia/período) e encaminhar para a equipe confirmar</span></label>
+            <label class="radio-item"><input type="radio" name="preferencia_agendamento" value="automatico" /><div class="radio-box"></div><span class="radio-label">Agendar automaticamente via Google Calendar (plano Escala)</span></label>
+          </div>
+        </div>
+        <div class="question">
+          <label class="q-label">Horários prioritários para preencher (dias e períodos)</label>
+          <input type="text" name="horarios_prioritarios" placeholder="Ex: manhã de segunda e terça, sexta à tarde" />
+        </div>
+        <div class="section-footer">
+          <button type="button" class="btn-next" onclick="nextSection(5)">Próxima seção →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEÇÃO 6 ── -->
+    <div class="section-card" id="sec-6" data-sec="6">
+      <div class="section-head" onclick="toggleSection(6)">
+        <div class="section-head-left">
+          <div class="section-num">6</div>
+          <div>
+            <div class="section-title">FAQ + Guardrails</div>
+            <div class="section-subtitle">O que o bot deve — e não deve — responder</div>
+          </div>
+        </div>
+        <span class="section-chevron">▾</span>
+      </div>
+      <div class="section-body">
+        <div class="question">
+          <label class="q-label">Perguntas mais comuns (com a resposta ideal) <span class="req">*</span></label>
+          <p class="q-hint">Cole as 10–15 perguntas que chegam toda semana com a resposta que a equipe daria. Isso alimenta diretamente o assistente.</p>
+          <textarea name="faq" required rows="8" placeholder="1. Qual o horário de atendimento? R: Seg–Sex 8h–18h, Sáb 8h–12h.&#10;2. Vocês atendem convênio? R: Somente particular.&#10;3. ..."></textarea>
+        </div>
+        <div class="question">
+          <label class="q-label">Situações de urgência — o que exige atendimento humano IMEDIATO? <span class="req">*</span></label>
+          <p class="q-hint">O bot vai disparar um alerta automático para a equipe nesses casos.</p>
+          <textarea name="urgencia" required rows="3" placeholder="Ex: dor aguda, sangramento, cliente muito insatisfeito, reclamação grave..."></textarea>
+        </div>
+        <div class="question">
+          <label class="q-label">O que o bot NÃO deve responder? (guardrails)</label>
+          <p class="q-hint">Ex: diagnóstico médico, garantia de resultado, crítica de concorrentes, valores de contrato.</p>
+          <textarea name="guardrails" rows="3" placeholder="Liste temas ou situações que o bot deve evitar..."></textarea>
+        </div>
+        <div class="section-footer">
+          <button type="button" class="btn-next" onclick="nextSection(6)">Próxima seção →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEÇÃO 7 ── -->
+    <div class="section-card" id="sec-7" data-sec="7">
+      <div class="section-head" onclick="toggleSection(7)">
+        <div class="section-head-left">
+          <div class="section-num">7</div>
+          <div>
+            <div class="section-title">Tom de voz e identidade</div>
+            <div class="section-subtitle">Como o assistente vai se comunicar</div>
+          </div>
+        </div>
+        <span class="section-chevron">▾</span>
+      </div>
+      <div class="section-body">
+        <div class="question">
+          <label class="q-label">Tom de voz preferido <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="tom_voz" value="premium" required /><div class="radio-box"></div><span class="radio-label">Premium / acolhedor — formal, sofisticado, transmite confiança</span></label>
+            <label class="radio-item"><input type="radio" name="tom_voz" value="direto" /><div class="radio-box"></div><span class="radio-label">Direto / objetivo — rápido, prático, sem rodeios</span></label>
+            <label class="radio-item"><input type="radio" name="tom_voz" value="amigavel" /><div class="radio-box"></div><span class="radio-label">Amigável / informal — próximo, descontraído, como um atendente que conhece o cliente</span></label>
+          </div>
+        </div>
+        <div class="question">
+          <label class="q-label">Emojis nas mensagens <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="emojis" value="sim" required /><div class="radio-box"></div><span class="radio-label">Pode usar com moderação</span></label>
+            <label class="radio-item"><input type="radio" name="emojis" value="nao" /><div class="radio-box"></div><span class="radio-label">Melhor evitar</span></label>
+          </div>
+        </div>
+        <div class="question">
+          <label class="q-label">Nome do assistente virtual</label>
+          <p class="q-hint">O nome padrão ZapPro é <strong>Luma</strong>. Se quiser um nome personalizado para a sua empresa (ex: Sofia, Max, Bia), escreva abaixo. Deixe em branco para usar Luma.</p>
+          <input type="text" name="nome_assistente" placeholder="Deixe em branco para usar Luma" />
+        </div>
+        <div class="section-footer">
+          <button type="button" class="btn-next" onclick="nextSection(7)">Próxima seção →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEÇÃO 8 ── -->
+    <div class="section-card" id="sec-8" data-sec="8">
+      <div class="section-head" onclick="toggleSection(8)">
+        <div class="section-head-left">
+          <div class="section-num">8</div>
+          <div>
+            <div class="section-title">Horário de resposta da equipe</div>
+            <div class="section-subtitle">O bot roda 24/7 — mas a equipe tem horário</div>
+          </div>
+        </div>
+        <span class="section-chevron">▾</span>
+      </div>
+      <div class="section-body">
+        <div class="info-box blue">
+          O assistente atende 24h por dia. Quando encaminhar para a equipe humana fora do horário comercial, ele informa automaticamente quando vão retornar — por isso precisamos saber o horário real da equipe.
+        </div>
+        <div class="question">
+          <label class="q-label">Em quais horários a equipe consegue responder o WhatsApp? <span class="req">*</span></label>
+          <input type="text" name="horario_equipe" required placeholder="Ex: Seg–Sex 8h–18h, Sáb 8h–12h" />
+        </div>
+        <div class="question">
+          <label class="q-label">Em quanto tempo a equipe costuma responder após o handoff? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="sla_resposta" value="30min" required /><div class="radio-box"></div><span class="radio-label">Até 30 minutos</span></label>
+            <label class="radio-item"><input type="radio" name="sla_resposta" value="2h" /><div class="radio-box"></div><span class="radio-label">Até 2 horas</span></label>
+            <label class="radio-item"><input type="radio" name="sla_resposta" value="mesmo_dia" /><div class="radio-box"></div><span class="radio-label">Até no mesmo dia</span></label>
+            <label class="radio-item"><input type="radio" name="sla_resposta" value="proximo_dia" /><div class="radio-box"></div><span class="radio-label">No próximo dia útil</span></label>
+          </div>
+        </div>
+        <div class="section-footer">
+          <button type="button" class="btn-next" onclick="nextSection(8)">Próxima seção →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEÇÃO 9 ── -->
+    <div class="section-card" id="sec-9" data-sec="9">
+      <div class="section-head" onclick="toggleSection(9)">
+        <div class="section-head-left">
+          <div class="section-num">9</div>
+          <div>
+            <div class="section-title">Grupo de alertas</div>
+            <div class="section-subtitle">Ação necessária antes da ativação</div>
+          </div>
+        </div>
+        <span class="section-chevron">▾</span>
+      </div>
+      <div class="section-body">
+        <div class="info-box orange">
+          <strong>⚠️ Ação necessária:</strong> Antes de ativarmos, crie um grupo no WhatsApp chamado exatamente <strong>"ZapPro Alertas"</strong>. Adicione todos que devem receber alertas (recepção, gerente, etc.). O ZapPro fornece o número do bot para adicionar ao grupo durante o setup.
+        </div>
+        <div class="question">
+          <label class="q-label">Quantas pessoas devem receber os alertas do bot?</label>
+          <input type="text" name="qtd_alertas" placeholder="Ex: 3 pessoas" />
+        </div>
+        <div class="question">
+          <label class="q-label">Nome do responsável que vai criar o grupo <span class="req">*</span></label>
+          <input type="text" name="responsavel_grupo" required placeholder="Nome da pessoa" />
+        </div>
+        <div class="section-footer">
+          <button type="button" class="btn-next" onclick="nextSection(9)">Próxima seção →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEÇÃO 10 ── -->
+    <div class="section-card" id="sec-10" data-sec="10">
+      <div class="section-head" onclick="toggleSection(10)">
+        <div class="section-head-left">
+          <div class="section-num">10</div>
+          <div>
+            <div class="section-title">Exemplos reais</div>
+            <div class="section-subtitle">Opcional — mas ajuda muito</div>
+          </div>
+        </div>
+        <span class="section-chevron">▾</span>
+      </div>
+      <div class="section-body">
+        <div class="question">
+          <label class="q-label">Cole 2–3 exemplos de mensagens típicas que chegam no WhatsApp</label>
+          <p class="q-hint">Sem dados pessoais de clientes. Só o texto da mensagem. Isso ajuda a calibrar o tom e o fluxo do assistente.</p>
+          <textarea name="exemplos_mensagens" rows="5" placeholder='Ex:&#10;"Boa tarde, queria saber quanto custa um implante, tenho convênio Unimed"&#10;"Olá! Vcs atendem sábado? Preciso de urgência"&#10;"Quero marcar uma avaliação para segunda de manhã"'></textarea>
+        </div>
+        <div class="section-footer">
+          <button type="button" class="btn-next done-btn" onclick="nextSection(10)">✓ Concluir e enviar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SUBMIT ── -->
+    <div class="submit-card" id="submitCard" style="display:none">
+      <h3>Tudo pronto! 🎉</h3>
+      <p>Revisamos suas respostas e ativamos seu assistente em até 48 horas. Você recebe uma ligação para aprovar a V1 antes de ir ao ar.</p>
+      <button type="submit" class="btn-submit">
+        ⚡ Enviar formulário
+      </button>
+      <p class="submit-note">Após enviar, entraremos em contato pelo WhatsApp +55 16 99424-7541</p>
+    </div>
+
+  </form>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✓</div>
+    <h2>Formulário enviado!</h2>
+    <p>Recebemos suas informações. Em até 48h a equipe ZapPro ativa seu assistente e entra em contato para você aprovar a V1.</p>
+    <br><br>
+    <a href="/" style="color: var(--blue-dark); font-weight: 600; text-decoration: none;">← Voltar ao site</a>
+  </div>
+
+</div>
+
+<script>
+  const TOTAL_SECTIONS = 10;
+  const sectionState = {}; // 1–10: 'open' | 'done'
+  for (let i = 1; i <= TOTAL_SECTIONS; i++) sectionState[i] = i === 1 ? 'open' : 'pending';
+
+  // ── Build section dots ──
+  const dotsWrap = document.getElementById('sectionDots');
+  for (let i = 1; i <= TOTAL_SECTIONS; i++) {
+    const d = document.createElement('div');
+    d.className = 'section-dot' + (i === 1 ? ' active' : '');
+    d.id = `dot-${i}`;
+    dotsWrap.appendChild(d);
+  }
+
+  function updateProgress() {
+    const done = Object.values(sectionState).filter(s => s === 'done').length;
+    const pct = Math.round((done / TOTAL_SECTIONS) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressCount').textContent = pct + '% concluído';
+    const openSec = Object.keys(sectionState).find(k => sectionState[k] === 'open');
+    document.getElementById('progressLabel').textContent = `Seção ${openSec || TOTAL_SECTIONS} de ${TOTAL_SECTIONS}`;
+
+    for (let i = 1; i <= TOTAL_SECTIONS; i++) {
+      const dot = document.getElementById(`dot-${i}`);
+      dot.className = 'section-dot';
+      if (sectionState[i] === 'done') dot.classList.add('done');
+      else if (sectionState[i] === 'open') dot.classList.add('active');
+    }
+  }
+
+  function toggleSection(n) {
+    const card = document.getElementById(`sec-${n}`);
+    const isOpen = card.classList.contains('open');
+    if (isOpen) {
+      card.classList.remove('open');
+    } else {
+      // Close all others
+      for (let i = 1; i <= TOTAL_SECTIONS; i++) {
+        document.getElementById(`sec-${i}`).classList.remove('open');
+      }
+      card.classList.add('open');
+      sectionState[n] = 'open';
+      updateProgress();
+    }
+  }
+
+  function nextSection(n) {
+    const card = document.getElementById(`sec-${n}`);
+    card.classList.remove('open', 'active');
+    card.classList.add('done');
+    sectionState[n] = 'done';
+
+    if (n < TOTAL_SECTIONS) {
+      const next = document.getElementById(`sec-${n + 1}`);
+      // Close all
+      for (let i = 1; i <= TOTAL_SECTIONS; i++) document.getElementById(`sec-${i}`).classList.remove('open');
+      next.classList.add('open', 'active');
+      sectionState[n + 1] = 'open';
+      next.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      // Show submit
+      document.getElementById('submitCard').style.display = 'block';
+      document.getElementById('submitCard').scrollIntoView({ behavior: 'smooth' });
+    }
+    updateProgress();
+  }
+
+  // ── Radio & Checkbox visual ──
+  document.querySelectorAll('.radio-item input').forEach(input => {
+    input.addEventListener('change', () => {
+      const group = input.closest('.radio-group');
+      if (!group) return;
+      group.querySelectorAll('.radio-item').forEach(item => item.classList.remove('selected'));
+      input.closest('.radio-item').classList.add('selected');
+    });
+  });
+
+  document.querySelectorAll('.check-item input').forEach(input => {
+    input.addEventListener('change', () => {
+      input.closest('.check-item').classList.toggle('selected', input.checked);
+    });
+  });
+
+  // ── Form submit ──
+  document.getElementById('onboardingForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+
+    try {
+      await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(data).toString() });
+      document.getElementById('onboardingForm').style.display = 'none';
+      document.getElementById('progressWrap') && (document.getElementById('progressWrap').style.display = 'none');
+      document.querySelector('.progress-wrap').style.display = 'none';
+      document.getElementById('successScreen').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      alert('Erro ao enviar. Tente novamente ou entre em contato pelo WhatsApp: +55 16 99424-7541');
+    }
+  });
+
+  updateProgress();
+</script>
+
+</body>
+</html>
