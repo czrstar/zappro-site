@@ -31,17 +31,17 @@
       --green-light:#DCF8C6;
       --green-pale: #E8FFF3;
       --blue-primary: #0369A1;
-      --blue-hover: #0C4A6E;
+      --blue-hover: #02537d;
       --blue-deep:  #0C4A6E;
       --blue-dark:  #0369A1;
       --blue-pale:  #E0F2FE;
       --blue-light: #BAE6FD;
-      --brand-pro:  #38BDF8;
+
       --white:      #FFFFFF;
       --grey-50:    #F8FAF9;
       --grey-100:   #F1F5F2;
       --grey-200:   #E2E8E4;
-      --grey-500:   #64748B;
+      --grey-500:   #475569;
       --grey-700:   #334155;
       --grey-900:   #0F172A;
       --radius:     12px;
@@ -63,8 +63,8 @@
     .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
     .badge {
       display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(56,189,248,.15); color: var(--blue-light);
-      border: 1px solid rgba(56,189,248,.25);
+      background: rgba(3,105,161,.15); color: var(--blue-light);
+      border: 1px solid rgba(3,105,161,.25);
       font-size: 13px; font-weight: 600; letter-spacing: .4px;
       padding: 4px 12px; border-radius: 999px;
     }
@@ -82,7 +82,7 @@
       background: transparent; color: rgba(255,255,255,.8);
       border: 2px solid rgba(255,255,255,.2);
     }
-    .btn-outline:hover { border-color: var(--blue-primary); color: var(--white); background: rgba(56,189,248,.1); }
+    .btn-outline:hover { border-color: var(--blue-primary); color: var(--white); background: rgba(3,105,161,.1); }
     .btn-blue {
       background: var(--blue-dark); color: var(--white);
     }
@@ -159,7 +159,7 @@
       content: '';
       position: absolute; top: -200px; right: -100px;
       width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(56,189,248,.12) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(3,105,161,.12) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero::after {
@@ -211,7 +211,7 @@
       border: 2px solid rgba(255,255,255,.15);
       display: flex; align-items: center; justify-content: center;
       font-size: 16px;
-      margin-left: -8px; background: rgba(56,189,248,.15);
+      margin-left: -8px; background: rgba(3,105,161,.15);
       box-shadow: 0 2px 8px rgba(0,0,0,.3);
     }
     .proof-avatars span:first-child { margin-left: 0; }
@@ -456,7 +456,7 @@
     .plan.featured {
       border-color: var(--blue-primary);
       background: linear-gradient(180deg, #EFF6FF 0%, var(--white) 100%);
-      box-shadow: 0 8px 32px rgba(56,189,248,.12);
+      box-shadow: 0 8px 32px rgba(3,105,161,.12);
     }
     .plan-badge-top {
       position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
@@ -713,7 +713,7 @@
     .final-ctas { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
     .btn-green-lg {
       font-size: 18px !important; padding: 18px 36px !important;
-      box-shadow: 0 6px 24px rgba(56,189,248,.4);
+      box-shadow: 0 6px 24px rgba(3,105,161,.4);
       background: var(--white) !important; color: var(--blue-deep) !important;
     }
     .btn-green-lg:hover { background: #EFF6FF !important; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,255,255,.3); }
@@ -737,8 +737,10 @@
       width: 60px; height: 60px; border-radius: 50%;
       background: var(--green); box-shadow: 0 4px 20px rgba(37,211,102,.5);
       display: flex; align-items: center; justify-content: center;
-      text-decoration: none; transition: all .2s;
+      text-decoration: none; transition: all .3s;
+      opacity: 0; pointer-events: none;
     }
+    .whatsapp-float.visible { opacity: 1; pointer-events: auto; }
     .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,.65); }
     .whatsapp-float svg { width: 32px; height: 32px; fill: var(--white); }
 
@@ -792,7 +794,7 @@
         <a href="#como-funciona">Como funciona</a>
         <a href="#planos">Planos</a>
         <a href="#faq">FAQ</a>
-        <a href="https://wa.me/5516994247541?text=Oi%2C%20quero%20saber%20mais%20sobre%20a%20TYVE!" class="btn btn-green nav-cta" target="_blank" rel="noopener noreferrer">Falar com a equipe</a>
+        <a href="#planos" class="btn btn-green nav-cta">Ver planos</a>
       </div>
     </div>
   </nav>
@@ -1104,7 +1106,7 @@
                 <span style="font-size:20px;">🔗</span>
                 <div>
                   <p style="font-weight:600;color:#1d4ed8;margin:0;font-size:13px;">agenda.clinicaxyz.com.br</p>
-                  <p style="margin:0;font-size:11px;color:#64748b;">Clique para agendar</p>
+                  <p style="margin:0;font-size:11px;color:#475569;">Clique para agendar</p>
                 </div>
               </div>
               <div class="mp-bubble client-bubble" style="margin-top:8px;">
@@ -1275,7 +1277,7 @@
         <table>
           <thead><tr><th></th><th>Atende / Cresce / Escala</th><th>+ Add-on Agenda</th><th class="col-converte">TYVE Converte</th></tr></thead>
           <tbody>
-            <tr><td>Faz o quê</td><td>Recepciona e qualifica<br/><span style="font-size:11px;color:#64748b;">Escala: + agenda nativa inclusa</span></td><td>Agenda direto no WhatsApp</td><td class="col-converte">Converte e fecha</td></tr>
+            <tr><td>Faz o quê</td><td>Recepciona e qualifica<br/><span style="font-size:11px;color:#475569;">Escala: + agenda nativa inclusa</span></td><td>Agenda direto no WhatsApp</td><td class="col-converte">Converte e fecha</td></tr>
             <tr><td>IA usada</td><td>TYVE</td><td>TYVE</td><td class="col-converte">TYVE Pro</td></tr>
             <tr><td>Ideal pra</td><td>Clínicas e serviços gerais</td><td>Negócios com agenda cheia</td><td class="col-converte">Imobiliárias, estética premium, alto ticket</td></tr>
             <tr><td>Complementa</td><td>Sua recepção</td><td>Recepção + agenda</td><td class="col-converte">Recepção + equipe comercial</td></tr>
@@ -1403,8 +1405,10 @@
       });
     });
     const nav = document.querySelector('nav');
+    const waFloat = document.querySelector('.whatsapp-float');
     window.addEventListener('scroll', () => {
       nav.style.boxShadow = window.scrollY > 20 ? '0 4px 24px rgba(0,0,0,.12)' : 'none';
+      if (waFloat) waFloat.classList.toggle('visible', window.scrollY > 600);
     });
   </script>
 </body>
