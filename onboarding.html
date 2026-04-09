@@ -368,10 +368,6 @@
   </div>
 
   <form id="onboardingForm" name="tyve-onboarding">
-    <input type="hidden" name="access_key" value="SUBSTITUIR_CHAVE_WEB3FORMS" />
-    <input type="hidden" name="subject" value="Novo onboarding TYVE" />
-    <input type="hidden" name="from_name" value="TYVE Onboarding" />
-    <input type="hidden" name="bot-field" />
 
     <!-- ── SEÇÃO 1 ── -->
     <div class="section-card open active" id="sec-1" data-sec="1">
@@ -860,7 +856,22 @@
     const data = new FormData(form);
 
     try {
-      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(data)) });
+      const fields = Object.fromEntries(data);
+      const msg = `📋 *NOVO ONBOARDING TYVE*\n\n` +
+        `🏢 Empresa: ${fields.nome_empresa||'—'}\n` +
+        `📍 Cidade: ${fields.cidade_bairro||'—'}\n` +
+        `📱 WhatsApp: ${fields.numero_whatsapp||'—'}\n` +
+        `👤 Responsável: ${fields.responsavel||'—'}\n` +
+        `📊 Volume: ${fields.volume_mensal||'—'}\n` +
+        `📅 Agenda: ${fields.sistema_agenda||'—'}\n` +
+        `🕐 Horário: ${fields.horario_atendimento||'—'}\n` +
+        `🌐 Instagram/Site: ${fields.instagram_site||'—'}\n\n` +
+        `📝 Desc: ${(fields.descricao_empresa||'').slice(0,120)}`;
+      const res = await fetch('https://filthyant-n8n.cloudfy.live/webhook/62daf83b-0f90-4aff-9844-6a9b7202c5d2', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: msg })
+      });
       if (!res.ok) throw new Error('status ' + res.status);
       document.getElementById('onboardingForm').style.display = 'none';
       document.getElementById('progressWrap') && (document.getElementById('progressWrap').style.display = 'none');
