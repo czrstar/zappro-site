@@ -679,6 +679,81 @@
       background: var(--white); border-radius: var(--radius);
       border: 1px solid var(--grey-200); overflow: hidden;
     }
+    /* ── ROI CALCULATOR ── */
+    .roi-section {
+      padding: 96px 0;
+      background: linear-gradient(180deg, var(--white) 0%, #F0F9FF 50%, var(--white) 100%);
+    }
+    .roi-inner { max-width: 720px; margin: 0 auto; }
+    .roi-header { text-align: center; margin-bottom: 48px; }
+    .roi-label {
+      display: inline-block; font-size: 13px; font-weight: 700;
+      color: var(--blue-primary); letter-spacing: .5px;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .roi-title {
+      font-size: clamp(24px, 3.5vw, 32px); font-weight: 900;
+      color: var(--grey-900); margin-bottom: 8px;
+    }
+    .roi-sub { font-size: 15px; color: var(--grey-500); }
+    .roi-input-group { margin-bottom: 36px; }
+    .roi-input-label {
+      display: block; font-size: 15px; font-weight: 600;
+      color: var(--grey-900); margin-bottom: 12px;
+    }
+    .roi-slider-row { display: flex; align-items: center; gap: 16px; }
+    .roi-slider {
+      flex: 1; -webkit-appearance: none; appearance: none;
+      height: 8px; border-radius: 4px;
+      background: linear-gradient(90deg, #22C55E, var(--blue-primary));
+      outline: none;
+    }
+    .roi-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--white); border: 3px solid var(--blue-primary);
+      cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    }
+    .roi-slider::-moz-range-thumb {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--white); border: 3px solid var(--blue-primary);
+      cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    }
+    .roi-slider-value {
+      font-size: 28px; font-weight: 900; color: var(--blue-primary);
+      min-width: 60px; text-align: center;
+    }
+    .roi-slider-hints {
+      display: flex; justify-content: space-between;
+      font-size: 12px; color: var(--grey-500); margin-top: 6px;
+    }
+    .roi-results {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-bottom: 24px;
+    }
+    .roi-card {
+      background: var(--white); border-radius: 12px;
+      padding: 24px 20px; text-align: center;
+      border: 1px solid var(--grey-200);
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .roi-card-highlight {
+      background: var(--blue-primary); border-color: var(--blue-primary);
+    }
+    .roi-card-highlight .roi-card-label,
+    .roi-card-highlight .roi-card-detail { color: rgba(255,255,255,.7); }
+    .roi-card-highlight .roi-card-value { color: #ffffff; }
+    .roi-card-label { font-size: 12px; font-weight: 600; color: var(--grey-500); text-transform: uppercase; letter-spacing: .3px; }
+    .roi-card-value { font-size: 32px; font-weight: 900; color: var(--grey-900); }
+    .roi-card-detail { font-size: 12px; color: var(--grey-500); line-height: 1.4; }
+    .roi-footnote {
+      font-size: 11px; color: var(--grey-500); line-height: 1.5;
+      text-align: center; opacity: .7;
+    }
+    @media (max-width: 768px) {
+      .roi-results { grid-template-columns: 1fr; }
+    }
+
     .faq-question {
       width: 100%; background: none; border: none; cursor: pointer;
       padding: 20px 24px; text-align: left; font-family: inherit;
@@ -1332,6 +1407,49 @@
     </div>
   </section>
 
+  <!-- ROI CALCULATOR -->
+  <section class="roi-section" id="roi">
+    <div class="container">
+      <div class="roi-inner">
+        <div class="roi-header">
+          <span class="roi-label">📊 Calculadora de Economia</span>
+          <h2 class="roi-title">Quanto tempo sua equipe ganha com a TYVE?</h2>
+          <p class="roi-sub">Baseado em dados reais de PMEs brasileiras (CNDL/SPC Brasil, Opinion Box, Sebrae).</p>
+        </div>
+        <div class="roi-calc">
+          <div class="roi-input-group">
+            <label class="roi-input-label">Mensagens no WhatsApp por dia</label>
+            <div class="roi-slider-row">
+              <input type="range" id="roiSlider" min="20" max="300" value="80" step="10" class="roi-slider" />
+              <span class="roi-slider-value" id="roiValue">80</span>
+            </div>
+            <div class="roi-slider-hints">
+              <span>20/dia</span><span>Clínica média: ~80</span><span>300/dia</span>
+            </div>
+          </div>
+          <div class="roi-results">
+            <div class="roi-card">
+              <span class="roi-card-label">Tempo manual por mês</span>
+              <span class="roi-card-value" id="roiManual">53h</span>
+              <span class="roi-card-detail">~3,5 min por mensagem × 20 dias úteis</span>
+            </div>
+            <div class="roi-card roi-card-highlight">
+              <span class="roi-card-label">Tempo liberado com a TYVE</span>
+              <span class="roi-card-value" id="roiSaved">40h</span>
+              <span class="roi-card-detail">75% das interações resolvidas pela IA</span>
+            </div>
+            <div class="roi-card">
+              <span class="roi-card-label">Economia equivalente</span>
+              <span class="roi-card-value" id="roiMoney">R$ 600</span>
+              <span class="roi-card-detail">Com base no custo médio/hora de atendente (R$ 15/h)</span>
+            </div>
+          </div>
+          <p class="roi-footnote">Fontes: CNDL/SPC Brasil (67% das empresas vendem via WhatsApp), Aisensy (tempo médio de resposta 3:32min), Salário.com.br (recepcionista R$ 1.500/mês). Cálculo: tempo manual − 75% automação IA = tempo liberado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section class="faq" id="faq">
     <div class="container">
@@ -1410,6 +1528,27 @@
       nav.style.boxShadow = window.scrollY > 20 ? '0 4px 24px rgba(0,0,0,.12)' : 'none';
       if (waFloat) waFloat.classList.toggle('visible', window.scrollY > 600);
     });
+
+    // ROI Calculator
+    const roiSlider = document.getElementById('roiSlider');
+    if (roiSlider) {
+      const update = () => {
+        const msgs = parseInt(roiSlider.value);
+        const minPerMsg = 3.5;
+        const workDays = 20;
+        const autoRate = 0.75;
+        const hourlyRate = 15;
+        const manualHours = Math.round((msgs * minPerMsg * workDays) / 60);
+        const savedHours = Math.round(manualHours * autoRate);
+        const savedMoney = savedHours * hourlyRate;
+        document.getElementById('roiValue').textContent = msgs;
+        document.getElementById('roiManual').textContent = manualHours + 'h';
+        document.getElementById('roiSaved').textContent = savedHours + 'h';
+        document.getElementById('roiMoney').textContent = 'R$ ' + savedMoney.toLocaleString('pt-BR');
+      };
+      roiSlider.addEventListener('input', update);
+      update();
+    }
   </script>
 </body>
 </html>
