@@ -343,10 +343,11 @@
   <div class="hero-badge">⚡ Ativação em até 48h</div>
   <h1>Conte sobre<br><span>seu negócio</span></h1>
   <p>Preencha o formulário abaixo. Com essas informações, ativamos seu assistente TYVE personalizado em até 48 horas.</p>
+  <p style="font-size:13px;opacity:.7;margin-top:6px;">Dica: use o botão "Próxima seção →" para avançar entre as etapas.</p>
   <div class="steps-row">
     <div class="step-pill"><span class="step-num">1</span>Preencha o form (8 min)</div>
     <div class="step-pill"><span class="step-num">2</span>Configuramos o assistente</div>
-    <div class="step-pill"><span class="step-num">3</span>Você aprova a V1 (call 20 min)</div>
+    <div class="step-pill"><span class="step-num">3</span>Você aprova antes de ir ao ar</div>
   </div>
 </div>
 
@@ -365,7 +366,7 @@
     <div class="section-dots" id="sectionDots"></div>
   </div>
 
-  <form id="onboardingForm" name="tyve-onboarding">
+  <form id="onboardingForm" name="tyve-onboarding" novalidate>
 
     <!-- ── SEÇÃO 1 ── -->
     <div class="section-card open active" id="sec-1" data-sec="1">
@@ -484,13 +485,13 @@
           </div>
         </div>
         <div class="question">
-          <label class="q-label">Volume atual: mensagens por mês no WhatsApp <span class="req">*</span></label>
-          <p class="q-hint">Usado para definir o plano ideal: Atende (≤200) • Cresce (≤500) • Escala (≤1.000)</p>
+          <label class="q-label">Volume atual: contatos por mês no WhatsApp <span class="req">*</span></label>
+          <p class="q-hint">Contatos = pessoas diferentes que mandam mensagem, não o total de mensagens. Usado para definir o plano ideal: Atende (≤200) • Cresce (≤500) • Escala (≤1.000)</p>
           <div class="radio-group" id="rg-volume">
-            <label class="radio-item"><input type="radio" name="volume_mensal" value="ate100" required /><div class="radio-box"></div><span class="radio-label">Até 100 mensagens/mês</span></label>
-            <label class="radio-item"><input type="radio" name="volume_mensal" value="100_300" /><div class="radio-box"></div><span class="radio-label">100–300 mensagens/mês</span></label>
-            <label class="radio-item"><input type="radio" name="volume_mensal" value="300_600" /><div class="radio-box"></div><span class="radio-label">300–600 mensagens/mês</span></label>
-            <label class="radio-item"><input type="radio" name="volume_mensal" value="600plus" /><div class="radio-box"></div><span class="radio-label">Mais de 600 mensagens/mês</span></label>
+            <label class="radio-item"><input type="radio" name="volume_mensal" value="ate100" required /><div class="radio-box"></div><span class="radio-label">Até 100 contatos/mês</span></label>
+            <label class="radio-item"><input type="radio" name="volume_mensal" value="100_300" /><div class="radio-box"></div><span class="radio-label">100–300 contatos/mês</span></label>
+            <label class="radio-item"><input type="radio" name="volume_mensal" value="300_600" /><div class="radio-box"></div><span class="radio-label">300–600 contatos/mês</span></label>
+            <label class="radio-item"><input type="radio" name="volume_mensal" value="600plus" /><div class="radio-box"></div><span class="radio-label">Mais de 600 contatos/mês</span></label>
             <label class="radio-item"><input type="radio" name="volume_mensal" value="nao_uso" /><div class="radio-box"></div><span class="radio-label">Não uso WhatsApp para atendimento ainda</span></label>
           </div>
         </div>
@@ -584,8 +585,8 @@
         <div class="section-head-left">
           <div class="section-num">6</div>
           <div>
-            <div class="section-title">FAQ + Guardrails</div>
-            <div class="section-subtitle">O que o bot deve — e não deve — responder</div>
+            <div class="section-title">Perguntas frequentes e limites</div>
+            <div class="section-subtitle">O que o assistente deve — e não deve — responder</div>
           </div>
         </div>
         <span class="section-chevron">▾</span>
@@ -602,7 +603,7 @@
           <textarea name="urgencia" required rows="3" placeholder="Ex: dor aguda, sangramento, cliente muito insatisfeito, reclamação grave..."></textarea>
         </div>
         <div class="question">
-          <label class="q-label">O que o bot NÃO deve responder? (guardrails)</label>
+          <label class="q-label">O que o assistente NÃO deve responder?</label>
           <p class="q-hint">Ex: diagnóstico médico, garantia de resultado, crítica de concorrentes, valores de contrato.</p>
           <textarea name="guardrails" rows="3" placeholder="Liste temas ou situações que o bot deve evitar..."></textarea>
         </div>
@@ -743,7 +744,7 @@
     <!-- ── SUBMIT ── -->
     <div class="submit-card" id="submitCard" style="display:none">
       <h3>Tudo pronto! 🎉</h3>
-      <p>Revisamos suas respostas e ativamos seu assistente em até 48 horas. Você recebe uma ligação para aprovar a V1 antes de ir ao ar.</p>
+      <p>Revisamos suas respostas e ativamos seu assistente em até 48 horas. Você será contatado pela equipe para aprovar a V1 antes de ir ao ar.</p>
       <button type="submit" class="btn-submit">
         ⚡ Enviar formulário
       </button>
@@ -757,7 +758,7 @@
   <div class="success-screen" id="successScreen">
     <div class="success-icon">✓</div>
     <h2>Formulário enviado!</h2>
-    <p>Recebemos suas informações. Em até 48h a equipe TYVE ativa seu assistente e entra em contato para você aprovar a V1.</p>
+    <p>Recebemos suas informações. Em até 48h a equipe TYVE ativa seu assistente e entra em contato pelo WhatsApp para você aprovar a V1.</p>
     <br><br>
     <a href="/" style="color: var(--blue-dark); font-weight: 600; text-decoration: none;">← Voltar ao site</a>
   </div>
