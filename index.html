@@ -906,7 +906,7 @@
         <a href="#planos" data-i18n="nav_plans">Planos</a>
         <a href="#faq" data-i18n="nav_faq">FAQ</a>
         <a href="#planos" class="btn btn-green nav-cta" data-i18n="nav_cta">Ver planos</a>
-        <button class="lang-toggle" id="langToggle" onclick="toggleLang()">🇺🇸 EN</button>
+        <button class="lang-toggle" id="langToggle" onclick="toggleLang()">🇧🇷 PT</button>
       </div>
     </div>
   </nav>
@@ -2150,8 +2150,8 @@
       applyLang(next);
     }
 
-    // Apply on load
-    if (window._lang === 'en') applyLang('en');
+    // Apply on load — always run to set flag button + all data-i18n elements correctly
+    applyLang(window._lang);
     // ── end i18n ──────────────────────────────────────────────────────────────
   </script>
 </body>
