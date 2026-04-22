@@ -426,6 +426,9 @@
       border: 1px solid var(--grey-200); transition: all .2s;
     }
     .segment-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--blue-primary); }
+    a.segment-card { text-decoration: none; color: inherit; display: block; cursor: pointer; }
+    a.segment-card:hover .segment-link { opacity: 1; }
+    .segment-link { display: block; margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--blue-primary); opacity: 0.7; transition: opacity .2s; }
     .segment-icon { font-size: 40px; margin-bottom: 14px; }
     .segment-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
     .segment-card p { font-size: 13px; color: var(--grey-500); line-height: 1.5; }
@@ -1092,7 +1095,7 @@
         <p class="section-sub" style="margin: 0 auto;" data-i18n="for_sub">Se você recebe 30+ mensagens por dia e quer parar de perder tempo respondendo manualmente, a TYVE é pra você.</p>
       </div>
       <div class="for-who-grid">
-        <div class="segment-card"><div class="segment-icon">🦷</div><h3 data-i18n="seg1_title">Clínicas e Consultórios</h3><p data-i18n="seg1_desc">Triagem, agendamentos e confirmações automáticas</p></div>
+        <a href="/odontologia" class="segment-card"><div class="segment-icon">🦷</div><h3 data-i18n="seg1_title">Clínicas e Consultórios</h3><p data-i18n="seg1_desc">Triagem, agendamentos e confirmações automáticas</p><span class="segment-link" data-i18n="seg1_link">Saiba mais →</span></a>
         <div class="segment-card"><div class="segment-icon">💆</div><h3 data-i18n="seg2_title">Estética e Beleza</h3><p data-i18n="seg2_desc">Agenda cheia sem ficar no WhatsApp o dia todo</p></div>
         <div class="segment-card"><div class="segment-icon">🏠</div><h3 data-i18n="seg3_title">Imobiliárias</h3><p data-i18n="seg3_desc">Qualificação de leads 24h antes do contato do corretor</p></div>
         <div class="segment-card"><div class="segment-icon">🚗</div><h3 data-i18n="seg4_title">Oficinas e Auto</h3><p data-i18n="seg4_desc">Orçamentos, agendamentos e follow-up automático</p></div>
@@ -1684,7 +1687,7 @@
         for_label: 'Para quem é',
         for_title: 'Pra quem tem negócio local<br/>e WhatsApp que não para de tocar',
         for_sub: 'Se você recebe 30+ mensagens por dia e quer parar de perder tempo respondendo manualmente, a TYVE é pra você.',
-        seg1_title: 'Clínicas e Consultórios', seg1_desc: 'Triagem, agendamentos e confirmações automáticas',
+        seg1_title: 'Clínicas e Consultórios', seg1_desc: 'Triagem, agendamentos e confirmações automáticas', seg1_link: 'Saiba mais →',
         seg2_title: 'Estética e Beleza', seg2_desc: 'Agenda cheia sem ficar no WhatsApp o dia todo',
         seg3_title: 'Imobiliárias', seg3_desc: 'Qualificação de leads 24h antes do contato do corretor',
         seg4_title: 'Oficinas e Auto', seg4_desc: 'Orçamentos, agendamentos e follow-up automático',
@@ -1932,7 +1935,7 @@
         for_label: 'Who it\'s for',
         for_title: 'For local businesses<br/>with a WhatsApp that never stops buzzing',
         for_sub: 'If you get 30+ messages a day and want to stop wasting time on manual replies, TYVE is for you.',
-        seg1_title: 'Clinics &amp; Medical Offices', seg1_desc: 'Triage, scheduling and automatic confirmations',
+        seg1_title: 'Clinics &amp; Medical Offices', seg1_desc: 'Triage, scheduling and automatic confirmations', seg1_link: 'Learn more →',
         seg2_title: 'Beauty &amp; Aesthetics', seg2_desc: 'Full schedule without being on WhatsApp all day',
         seg3_title: 'Real Estate', seg3_desc: '24/7 lead qualification before agent contact',
         seg4_title: 'Auto Shops', seg4_desc: 'Quotes, scheduling and automatic follow-up',
