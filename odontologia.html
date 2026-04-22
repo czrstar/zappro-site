@@ -74,32 +74,15 @@
       flex-shrink: 0;
     }
 
+    .nav-wordmark {
+      background: linear-gradient(90deg, var(--blue-primary), var(--blue-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
     .nav-right {
       display: flex; align-items: center; gap: 16px;
-    }
-
-    .lang-switch {
-      display: flex;
-      border: 1.5px solid var(--blue-primary);
-      border-radius: 20px;
-      padding: 4px;
-    }
-
-    .lang-switch button {
-      background: transparent;
-      border: none;
-      padding: 6px 12px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--blue-primary);
-      transition: all 0.2s;
-      border-radius: 16px;
-    }
-
-    .lang-switch button.active {
-      background: var(--white);
-      color: var(--blue-primary);
     }
 
     .nav-cta {
@@ -929,24 +912,20 @@
 <nav>
   <div>
     <a href="#hero" class="nav-logo">
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <svg width="36" height="36" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+        <defs><linearGradient id="navg" x1="40" y1="0" x2="160" y2="200" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22C55E"/><stop offset="100%" stop-color="#0284C7"/></linearGradient><clipPath id="navsq"><rect width="200" height="200" rx="48"/></clipPath></defs>
+        <g clip-path="url(#navsq)">
         <rect width="200" height="200" rx="48" fill="#0B0F14"/>
-        <defs>
-          <linearGradient id="grad-tyve" x1="40" y1="30" x2="160" y2="170">
-            <stop offset="0%" style="stop-color:#22C55E;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#0284C7;stop-opacity:1" />
-          </linearGradient>
-        </defs>
-        <rect x="18" y="18" width="164" height="164" rx="52" fill="url(#grad-tyve)"/>
-        <path d="M 42 30 L 158 30 L 100 94 L 100 170 M 100 94 L 158 30 L 42 30 Z" stroke="#0B0F14" stroke-width="26" stroke-linecap="round" fill="none" stroke-linejoin="round"/>
+        <rect x="12" y="12" width="176" height="176" rx="45" fill="url(#navg)"/>
+        <line x1="42" y1="12" x2="100" y2="94" stroke="#0B0F14" stroke-width="26" stroke-linecap="round"/>
+        <line x1="158" y1="12" x2="100" y2="94" stroke="#0B0F14" stroke-width="26" stroke-linecap="round"/>
+        <line x1="100" y1="94" x2="100" y2="170" stroke="#0B0F14" stroke-width="26" stroke-linecap="round"/>
+        </g>
       </svg>
-      <span>TYVE</span>
+      <span class="nav-wordmark">TYVE</span>
     </a>
     <div class="nav-right">
-      <div class="lang-switch">
-        <button class="active" onclick="setLang('pt')">🇧🇷 PT</button>
-        <button onclick="setLang('en')">🇺🇸 EN</button>
-      </div>
+      <a href="https://tyve.com.br" class="nav-cta" style="margin-right: 8px;">← Home</a>
       <a href="https://wa.me/5516994247541?text=Olá! Estou com dúvida sobre a TYVE para minha clínica." class="nav-cta">Falar com TYVE</a>
     </div>
   </div>
@@ -1238,21 +1217,21 @@
     <div class="footer-content">
       <div class="footer-section">
         <h4>TYVE</h4>
-        <a href="https://tyve.com.br">Home</a>
-        <a href="https://tyve.com.br/odontologia.html">Odontologia</a>
-        <a href="https://zapproai.com">Templates n8n</a>
+        <a href="https://tyve.com.br" rel="noopener noreferrer">Home</a>
+        <a href="https://tyve.com.br/odontologia.html" rel="noopener noreferrer">Odontologia</a>
+        <a href="https://zapproai.com" rel="noopener noreferrer">Templates n8n</a>
       </div>
       <div class="footer-section">
         <h4>Recursos</h4>
-        <a href="https://tyve.com.br/onboarding.html">Onboarding</a>
-        <a href="https://tyve.com.br">Como funciona</a>
-        <a href="https://wa.me/5516994247541">Suporte</a>
+        <a href="https://tyve.com.br/onboarding.html" rel="noopener noreferrer">Onboarding</a>
+        <a href="https://tyve.com.br" rel="noopener noreferrer">Como funciona</a>
+        <a href="https://wa.me/5516994247541" rel="noopener noreferrer">Suporte</a>
       </div>
       <div class="footer-section">
         <h4>Empresa</h4>
-        <a href="https://tyve.com.br/termos.html">Termos de uso</a>
-        <a href="https://tyve.com.br/termos.html">Política de privacidade</a>
-        <a href="https://wa.me/5516994247541">Contato</a>
+        <a href="https://tyve.com.br/termos.html" rel="noopener noreferrer">Termos de uso</a>
+        <a href="https://tyve.com.br/termos.html" rel="noopener noreferrer">Política de privacidade</a>
+        <a href="https://wa.me/5516994247541" rel="noopener noreferrer">Contato</a>
       </div>
     </div>
     <div class="footer-divider">
@@ -1273,18 +1252,6 @@
 </a>
 
 <script>
-  // Translations object
-  const T = {
-    pt: {
-      nav_cta: "Falar com TYVE",
-      nav_url: "https://wa.me/5516994247541?text=Olá! Estou com dúvida sobre a TYVE para minha clínica.",
-    },
-    en: {
-      nav_cta: "Talk to TYVE",
-      nav_url: "https://wa.me/5516994247541?text=Hello! I want to know more about TYVE for my dental clinic.",
-    }
-  };
-
   // FAQ toggle functionality
   document.querySelectorAll('.faq-question').forEach(q => {
     q.addEventListener('click', function() {
@@ -1300,28 +1267,6 @@
       floatBtn.classList.add('visible');
     } else {
       floatBtn.classList.remove('visible');
-    }
-  });
-
-  // Language toggle
-  function setLang(lang) {
-    localStorage.tyve_lang = lang;
-    document.querySelectorAll('.lang-switch button').forEach(btn => {
-      btn.classList.remove('active');
-    });
-    event.target.classList.add('active');
-  }
-
-  function getLang() {
-    return localStorage.tyve_lang || 'pt';
-  }
-
-  // Initialize language on load
-  window.addEventListener('load', function() {
-    const lang = getLang();
-    if (lang === 'en') {
-      document.querySelectorAll('.lang-switch button')[1].classList.add('active');
-      document.querySelectorAll('.lang-switch button')[0].classList.remove('active');
     }
   });
 </script>
