@@ -209,8 +209,12 @@ async function loadData() {
   if (!t) { showError(); return; }
   try {
     const res = await fetch(API + '?token=' + encodeURIComponent(t));
-    if (res.status === 401) { showError(); return; }
-    render(await res.json());
+    let data;
+    try { data = await res.json(); } catch(e) { showError(); return; }
+    // n8n returns HTTP 200 even for invalid tokens (responseCode option ignored in this version)
+    // Detect auth failure via body: empty/null or contains error field or missing expected field
+    if (!data || data.error || data.contacts_this_month === undefined) { showError(); return; }
+    render(data);
   } catch(e) { showError(); }
 }
 
