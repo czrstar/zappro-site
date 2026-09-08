@@ -807,6 +807,11 @@
           <label class="q-label">Qual plataforma?</label>
           <input type="text" name="plataforma_outra" placeholder="Ex: VTEX, Loja Integrada, Magento, Shopee..." />
         </div>
+        <div class="question" id="loja-url-wrap" style="display:none">
+          <label class="q-label">Endereço da sua loja online</label>
+          <p class="q-hint">É por ele que montamos o link para conectar a sua loja ao agente (você recebe por e-mail). Pode ser o domínio próprio ou o endereço da Nuvemshop.</p>
+          <input type="text" name="loja_url" placeholder="Ex: minhaloja.com.br ou minhaloja.lojavirtualnuvem.com.br" inputmode="url" autocomplete="url" />
+        </div>
         <div class="question">
           <label class="q-label">Nicho / categorias de produto <span class="req">*</span></label>
           <p class="q-hint">Ajuda o agente a entender o vocabulário dos seus clientes (numeração, modelos, materiais...).</p>
@@ -1408,6 +1413,8 @@
     if (e.target && e.target.name === 'plataforma') {
       const w = document.getElementById('plataforma-outra-wrap');
       if (w) w.style.display = e.target.value === 'outra' ? 'block' : 'none';
+      const lu = document.getElementById('loja-url-wrap');
+      if (lu) lu.style.display = e.target.value === 'nuvemshop' ? 'block' : 'none';
     }
   });
 
