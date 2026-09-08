@@ -14,6 +14,14 @@
   ],
   "rewrites": [
     {
+      "source": "/dashboard",
+      "destination": "/painel"
+    },
+    {
+      "source": "/config",
+      "destination": "/painel"
+    },
+    {
       "source": "/assinar/plano-:plano",
       "destination": "/assinar?plano=:plano"
     },
