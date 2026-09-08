@@ -427,6 +427,20 @@
   .src-equipe { background:#ffe4d6; color:#9a3412; }
   .src-canned, .src-menu, .src-pix { background:#f3f4f6; color:#374151; }
   .conv-empty { font-size:13.5px; color:#777; padding:14px 4px; }
+
+    /* ── Ensinar (08/09/2026) ── */
+    .ens-badge{display:inline-block;min-width:18px;padding:1px 6px;border-radius:999px;background:var(--orange);color:#fff;font-size:11px;font-weight:700;margin-left:4px;vertical-align:middle}
+    .ens-badge:empty{display:none}
+    .ens-item{border:1px solid var(--border2, #eee);border-radius:12px;padding:16px 18px;background:var(--surface2, #fafafa)}
+    .ens-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+    .ens-theme{font-weight:700;font-size:14.5px}
+    .ens-count{font-size:12px;color:var(--orange);font-weight:700;background:rgba(248,65,0,.08);padding:3px 10px;border-radius:999px}
+    .ens-lbl{display:block;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#777;margin:10px 0 5px}
+    .ens-src{font-weight:500;text-transform:none;letter-spacing:0;color:#1a9b60;margin-left:6px}
+    .ens-src-empty{color:#b45309}
+    .ens-item input,.ens-item textarea{width:100%;border:1.5px solid var(--border2, #ddd);border-radius:8px;padding:10px 12px;font:inherit;font-size:14px;background:#fff;box-sizing:border-box}
+    .ens-item textarea{resize:vertical;min-height:70px}
+    .ens-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
 </style>
 </head>
 <body>
@@ -464,6 +478,7 @@
     <button class="tab-btn active" data-tab="resultados" onclick="switchTab('resultados')">📊 Resultados</button>
     <button class="tab-btn" data-tab="trocas" id="tabBtnTrocas" onclick="switchTab('trocas')" style="display:none">🔄 Trocas</button>
     <button class="tab-btn" data-tab="conversas" onclick="switchTab('conversas')">💬 Conversas</button>
+    <button class="tab-btn" data-tab="ensinar" id="tabBtnEnsinar" onclick="switchTab('ensinar')" style="display:none">💡 Ensinar <span class="ens-badge" id="ensBadge"></span></button>
     <button class="tab-btn" data-tab="config" onclick="switchTab('config')">⚙️ Configurações</button>
   </div>
 </div>
@@ -764,6 +779,14 @@
     </div><!-- /tab-trocas -->
 
     <!-- ══ TAB: CONVERSAS ════════════════════════════════════ -->
+    <div id="tab-ensinar" style="display:none">
+      <div class="card">
+        <div class="sec-label" style="margin-bottom:12px">Ensinar o agente</div>
+        <div class="card-title">Perguntas que foram para a sua equipe</div>
+        <div class="card-sub">Toda semana o agente agrupa as perguntas que ele não soube responder e precisou passar para a equipe. Quando a equipe respondeu pelo WhatsApp, a resposta já vem preenchida como rascunho. Revise, ajuste se quiser e aprove: a partir daí o agente responde sozinho. Nada entra no FAQ sem a sua aprovação.</div>
+        <div class="faq-list" id="ensList" style="margin-top:16px"></div>
+      </div>
+    </div>
     <div id="tab-conversas" style="display:none">
       <div class="card">
         <div class="sec-label" style="margin-bottom:12px">Conversas</div>
@@ -805,6 +828,7 @@ const CFG_SAVE  = N8N + '/tyve-config-save';
 const EXCH_LIST = N8N + '/tyve-exchange-list';
 const EXCH_ACT  = N8N + '/tyve-exchange-action';
 const CONV_API  = N8N + '/tyve-conversations';
+const SUGG_API  = N8N + '/tyve-faq-suggestions';
 const REFRESH_MS = 5 * 60 * 1000;
 
 let TOKEN = '', CONFIG = {}, FAQ = [], chart = null;
@@ -864,6 +888,69 @@ function postJSON(url, body) {
   return fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)}).then(r=>r.json());
 }
 
+// ── ENSINAR (sugestões de FAQ a partir dos handoffs) — 08/09/2026 ──
+let ENS = [];
+async function refreshEnsinarBadge() {
+  try {
+    const d = await postJSON(SUGG_API, {token: TOKEN, action: 'list'});
+    ENS = (d && d.suggestions) || [];
+    const btn = document.getElementById('tabBtnEnsinar'), bd = document.getElementById('ensBadge');
+    if (btn) btn.style.display = ENS.length ? '' : 'none';
+    if (bd) bd.textContent = ENS.length ? String(ENS.length) : '';
+    if (location.hash === '#ensinar' && ENS.length) switchTab('ensinar');
+  } catch(e) {}
+}
+async function loadEnsinar() {
+  const box = document.getElementById('ensList'); if (!box) return;
+  box.innerHTML = '<p style="color:#888;font-size:14px">Carregando…</p>';
+  try {
+    const d = await postJSON(SUGG_API, {token: TOKEN, action: 'list'});
+    ENS = (d && d.suggestions) || [];
+    renderEnsinar();
+  } catch(e) { box.innerHTML = '<p style="color:#b91c1c;font-size:14px">Não foi possível carregar as sugestões agora.</p>'; }
+}
+function renderEnsinar() {
+  const box = document.getElementById('ensList'); if (!box) return;
+  const bd = document.getElementById('ensBadge'); if (bd) bd.textContent = ENS.length ? String(ENS.length) : '';
+  const btn = document.getElementById('tabBtnEnsinar'); if (btn && !ENS.length) btn.style.display = 'none';
+  if (!ENS.length) { box.innerHTML = '<p style="color:#888;font-size:14px">Nenhuma pergunta pendente. Quando o agente precisar passar algo para a equipe, as sugestões aparecem aqui toda semana.</p>'; return; }
+  box.innerHTML = ENS.map(s => {
+    const n = Number(s.occurrences||1);
+    const times = n === 1 ? '1 conversa' : n + ' conversas';
+    const hasDraft = !!(s.draft_answer && String(s.draft_answer).trim());
+    return `<div class="ens-item" id="ens-${s.id}">
+      <div class="ens-head"><span class="ens-theme">${esc(s.theme)}</span><span class="ens-count">${times} na semana</span></div>
+      <label class="ens-lbl">Pergunta (como o cliente faz)</label>
+      <input type="text" id="ensQ-${s.id}" value="${esc(s.question_example)}" maxlength="300" />
+      <label class="ens-lbl">Resposta do agente ${hasDraft ? '<span class="ens-src">rascunho a partir do que a sua equipe respondeu</span>' : '<span class="ens-src ens-src-empty">a equipe não respondeu pelo WhatsApp, escreva a resposta</span>'}</label>
+      <textarea id="ensA-${s.id}" rows="3" maxlength="2000" placeholder="Escreva como o agente deve responder">${esc(s.draft_answer||'')}</textarea>
+      <div class="ens-actions">
+        <button class="btn btn-primary btn-sm" onclick="ensApprove(${s.id})">Aprovar e ensinar</button>
+        <button class="btn btn-ghost btn-sm" onclick="ensDismiss(${s.id})">Dispensar</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+async function ensApprove(id) {
+  const q = (document.getElementById('ensQ-'+id)||{}).value || '', a = (document.getElementById('ensA-'+id)||{}).value || '';
+  if (!q.trim() || !a.trim()) { toast('Preencha a pergunta e a resposta antes de aprovar', false); return; }
+  try {
+    const d = await postJSON(SUGG_API, {token: TOKEN, action: 'approve', id, question: q.trim(), answer: a.trim()});
+    if (!d || !d.ok) { toast('Não deu para aprovar agora', false); return; }
+    ENS = ENS.filter(s => s.id !== id); renderEnsinar();
+    FAQ.push({id: d.result && d.result.faq_id, question: q.trim(), answer: a.trim(), enabled: true});
+    if (typeof renderFAQ === 'function') { try { renderFAQ(); } catch(e) {} }
+    toast('Pronto: o agente já responde essa pergunta sozinho');
+  } catch(e) { toast('Não deu para aprovar agora', false); }
+}
+async function ensDismiss(id) {
+  try {
+    const d = await postJSON(SUGG_API, {token: TOKEN, action: 'dismiss', id});
+    if (!d || !d.ok) { toast('Não deu para dispensar agora', false); return; }
+    ENS = ENS.filter(s => s.id !== id); renderEnsinar(); toast('Sugestão dispensada');
+  } catch(e) { toast('Não deu para dispensar agora', false); }
+}
+
 // ── TABS ─────────────────────────────────────────────
 function switchTab(tab) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
@@ -873,6 +960,9 @@ function switchTab(tab) {
   if (tr) tr.style.display = tab === 'trocas' ? '' : 'none';
   const cv = document.getElementById('tab-conversas');
   if (cv) cv.style.display = tab === 'conversas' ? '' : 'none';
+  const en = document.getElementById('tab-ensinar');
+  if (en) en.style.display = tab === 'ensinar' ? '' : 'none';
+  if (tab === 'ensinar') loadEnsinar();
   if (tab === 'trocas') loadTrocas();
   if (tab === 'conversas') loadConversas();
   history.replaceState(null,'', location.pathname + location.search + '#' + tab);
@@ -885,7 +975,7 @@ function initTab() {
     else if (/\/resultados\/?$/.test(location.pathname)) tab = 'resultados';
   }
   tab = tab || 'resultados';
-  switchTab(['resultados','config','trocas','conversas'].includes(tab) ? tab : 'resultados');
+  switchTab(['resultados','config','trocas','conversas','ensinar'].includes(tab) ? tab : 'resultados');
 }
 
 
@@ -1116,6 +1206,7 @@ async function reload() {
     if (tbt) tbt.style.display = exchOn ? '' : 'none';
     showState('ok');
     initTab();
+    refreshEnsinarBadge();
   } catch(e) { showState('error'); }
 }
 
